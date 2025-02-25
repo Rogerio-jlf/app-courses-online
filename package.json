@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "ngrok": "ngrok http http://localhost:3001"
+    "ngrok": "ngrok http http://localhost:3001",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@clerk/localizations": "^3.10.4",

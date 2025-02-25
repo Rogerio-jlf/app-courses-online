@@ -1,101 +1,187 @@
+"use client";
+
+import Link from "next/link";
 import Image from "next/image";
+import { FaBook, FaDollarSign, FaSignInAlt } from "react-icons/fa";
+import { useEffect, useState } from "react";
+import Footer from "@/components/Footer";
 
-export default function Home() {
+export default function HomePage() {
+  const [dynamicClass, setDynamicClass] = useState("");
+
+  useEffect(() => {
+    // Gere a classe dinâmica apenas no cliente
+    setDynamicClass("__variable_2dbf9b __variable_3292b7 antialiased");
+  }, []);
+  interface Routes {
+    [key: string]: string;
+  }
+
+  const getRoute = (item: string): string => {
+    const routes: Routes = {
+      Cursos: "course",
+      Planos: "plans",
+    };
+    return routes[item] || item.toLowerCase();
+  };
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <>
+      {/* CONTAINER PRINCIPAL DA PÁGINA */}
+      <div
+        className={`${dynamicClass} relative flex min-h-screen flex-col items-center justify-center bg-gradient-to-t from-blue-950 via-pink-950 to-blue-950 font-kodchasan`}
+      >
+        {/* IMAGEM DE FUNDO */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/escola.jpg"
+            alt="Descrição da Imagem"
+            layout="fill"
+            objectFit="cover"
+            className="h-full w-full opacity-80"
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+        {/* HEADER */}
+        <header className="fixed top-0 z-20 w-full bg-black shadow-sm backdrop-blur-md">
+          {/* Container principal do header  */}
+          <div className="mx-auto flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-20">
+            {/* Título */}
+            <h1 className="text-3xl font-bold text-white">MeuLogoTipo</h1>
+
+            {/* Navegação */}
+            <nav className="hidden items-center gap-6 lg:flex">
+              <ul className="flex items-center gap-6">
+                {["Cursos", "Planos"].map((item) => (
+                  <li key={item}>
+                    <Link
+                      href={`/${getRoute(item)}`}
+                      className="group relative flex items-center gap-2 text-lg font-medium text-white hover:italic hover:text-pink-500"
+                    >
+                      {item === "Cursos" ? <FaBook /> : <FaDollarSign />}
+                      {item}
+                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-pink-600 transition-all duration-200 group-hover:w-full"></span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+
+              {/* Barra vertical */}
+              <div className="h-10 w-px bg-white"></div>
+
+              {/* Botão de Login */}
+              <Link
+                href="/login"
+                className="flex items-center gap-2 rounded-lg bg-pink-600 px-6 py-2 text-lg font-semibold text-white transition-colors duration-200 hover:bg-pink-900 active:scale-90"
+              >
+                <FaSignInAlt />
+                Entrar
+              </Link>
+            </nav>
+          </div>
+        </header>
+
+        {/* MAIN */}
+        <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-12">
+          {/* SEÇÃO - TÍTULOS / BOTÃO */}
+          <section className="mt-24 text-center">
+            <h1 className="m-auto mb-4 max-w-3xl bg-gradient-to-r from-pink-900 to-purple-900 bg-clip-text text-5xl font-extrabold text-transparent">
+              A escola de tecnologia,
+              <span className="bg-black bg-clip-text text-5xl font-extrabold text-transparent">
+                {" "}
+                onde
+              </span>
+              <span className="bg-gradient-to-r from-pink-900 to-purple-900 bg-clip-text text-5xl font-extrabold text-transparent">
+                {" "}
+                se aprende de{" "}
+              </span>
+              <span className="bg-black bg-clip-text text-5xl font-extrabold text-transparent">
+                verdade!
+              </span>
+            </h1>
+
+            <p className="mb-14 text-2xl font-bold italic text-black">
+              Explore nossos cursos, planos e recursos para alcançar seus
+              objetivos de aprendizado.
+            </p>
+
+            <div className="mb-14 flex justify-center">
+              <Link
+                href="/login"
+                className="inline-flex items-center justify-center rounded-lg bg-gradient-to-r from-pink-600 to-purple-600 px-8 py-4 text-xl font-semibold text-white transition-all duration-200 hover:from-pink-900 hover:to-purple-900 active:scale-90"
+              >
+                Comece Agora
+              </Link>
+            </div>
+          </section>
+          {/* ---------- */}
+
+          {/* SEÇÃO - CARDS */}
+          <section className="grid w-full max-w-5xl grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {/* Card 1 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-pink-600/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-pink-950">
+                Cursos Online
+              </h2>
+
+              <p className="text-left font-semibold italic text-black">
+                Acesse uma variedade de cursos ministrados por especialistas.
+              </p>
+            </article>
+
+            {/* Card 2 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-purple-500/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-purple-950">
+                Planos Personalizados
+              </h2>
+              <p className="text-left font-semibold italic text-black">
+                Escolha o plano que melhor se adapta às suas necessidades.
+              </p>
+            </article>
+
+            {/* Card 3 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-blue-500/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-blue-950">
+                Suporte 24/7
+              </h2>
+              <p className="text-left font-semibold italic text-black">
+                Nossa equipe está sempre disponível para ajudar.
+              </p>
+            </article>
+
+            {/* Card 4 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-yellow-500/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-yellow-950">
+                Certificados
+              </h2>
+              <p className="text-left font-semibold italic text-black">
+                Receba certificados reconhecidos ao concluir seus cursos.
+              </p>
+            </article>
+
+            {/* Card 5 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-green-500/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-green-950">
+                Comunidade
+              </h2>
+              <p className="text-left font-semibold italic text-black">
+                Conecte-se com outros alunos e compartilhe conhecimento.
+              </p>
+            </article>
+
+            {/* Card 6 */}
+            <article className="flex h-48 flex-col justify-center rounded-lg bg-red-500/60 p-6 shadow-lg shadow-black">
+              <h2 className="mb-4 text-2xl font-bold text-red-950">
+                Recursos Grátis
+              </h2>
+              <p className="text-left font-semibold italic text-black">
+                Acesse materiais gratuitos para começar seu aprendizado.
+              </p>
+            </article>
+          </section>
+        </main>
+      </div>
+      <Footer />
+    </>
   );
 }

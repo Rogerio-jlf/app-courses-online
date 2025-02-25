@@ -144,6 +144,7 @@ export default function DashboardPage() {
     icon: React.ComponentType<{ className?: string }>;
     color: keyof typeof cardGradients;
   }
+
   const CardInfo = ({ title, value, icon: Icon, color }: CardInfoProps) => (
     <div
       className={`group rounded-xl bg-gradient-to-br ${cardGradients[color]} p-6 backdrop-blur-sm transition-all duration-300 hover:scale-105`}
@@ -161,7 +162,7 @@ export default function DashboardPage() {
   );
 
   return (
-    <main className="min-h-screen bg-neutral-950/95 text-white">
+    <main className="min-h-screen bg-neutral-950/95 font-kodchasan text-white">
       {/* SEÇÃO - HEADER */}
       <section className="mt-24 px-4 py-12 sm:px-6 lg:px-8">
         <div className="container mx-auto">

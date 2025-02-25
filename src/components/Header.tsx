@@ -1,8 +1,9 @@
 "use client";
 
-import { UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import { FaBook, FaDollarSign, FaHome } from "react-icons/fa";
+import { MdSpaceDashboard } from "react-icons/md";
+
 import { RiCommunityFill } from "react-icons/ri";
 
 export default function Header() {
@@ -12,7 +13,8 @@ export default function Header() {
 
   const getRoute = (item: string): string => {
     const routes: Routes = {
-      Início: "home",
+      Início: "/",
+      Dashboard: "home",
       Cursos: "course",
       Planos: "plans",
       Comunidade: "community",
@@ -30,29 +32,25 @@ export default function Header() {
         {/* Navegação */}
         <nav className="hidden items-center gap-6 lg:flex">
           <ul className="flex items-center gap-6">
-            {["Início", "Cursos", "Planos", "Comunidade"].map((item) => (
-              <li key={item}>
-                <Link
-                  href={`/${getRoute(item)}`}
-                  className="group relative flex items-center gap-2 text-lg font-medium text-white hover:italic hover:text-pink-500"
-                >
-                  {item === "Início" && <FaHome />}
-                  {item === "Cursos" && <FaBook />}
-                  {item === "Planos" && <FaDollarSign />}
-                  {item === "Comunidade" && <RiCommunityFill />}
-                  {item}
-                  <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-pink-600 transition-all duration-200 group-hover:w-full"></span>
-                </Link>
-              </li>
-            ))}
+            {["Início", "Dashboard", "Cursos", "Planos", "Comunidade"].map(
+              (item) => (
+                <li key={item}>
+                  <Link
+                    href={`/${getRoute(item)}`}
+                    className="group relative flex items-center gap-2 text-lg font-medium text-white hover:italic hover:text-pink-500"
+                  >
+                    {item === "Início" && <FaHome />}
+                    {item === "Dashboard" && <MdSpaceDashboard />}
+                    {item === "Cursos" && <FaBook />}
+                    {item === "Planos" && <FaDollarSign />}
+                    {item === "Comunidade" && <RiCommunityFill />}
+                    {item}
+                    <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-pink-600 transition-all duration-200 group-hover:w-full"></span>
+                  </Link>
+                </li>
+              ),
+            )}
           </ul>
-
-          {/* Barra vertical */}
-          <div className="h-10 w-px bg-white"></div>
-
-          <div className="flex scale-150 items-center justify-center transition hover:scale-[1.8]">
-            <UserButton />
-          </div>
         </nav>
       </div>
     </header>

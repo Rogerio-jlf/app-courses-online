@@ -1,9 +1,5 @@
 import type { Metadata } from "next";
-import { redirect } from "next/navigation";
 import { Geist, Geist_Mono } from "next/font/google";
-import { ClerkProvider } from "@clerk/nextjs";
-import { auth } from "@clerk/nextjs/server";
-import { ptBR } from "@clerk/localizations";
 import { Toaster } from "sonner";
 import { Hydrate } from "@/components/Hydrate";
 import "@/styles/globals.css";
@@ -28,34 +24,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // Verifica se o usuário está autenticado
-  const { userId } = await auth();
-
-  // Se o usuário estiver autenticado, redireciona para a página de cursos
-  if (userId) {
-    redirect("/home");
-  }
   return (
-    <ClerkProvider
-      // Passa a localização para o Clerk para traduzir as mensagens
-      localization={ptBR}
-      // Configuração de aparência do Clerk para desabilitar as páginas padrão
-      appearance={{
-        elements: {
-          rootBox: "w-full h-full",
-        },
-      }}
-    >
-      <html lang="en">
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <Hydrate>{children}</Hydrate>
+    <html lang="en">
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <Hydrate>{children}</Hydrate>
 
-          <Toaster richColors />
-          {/* {children} */}
-        </body>
-      </html>
-    </ClerkProvider>
+        <Toaster richColors />
+      </body>
+    </html>
   );
 }

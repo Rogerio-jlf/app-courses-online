@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { Poppins, Kodchasan } from "next/font/google";
 import "@/styles/globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "sonner";
-import { ptBR } from "@clerk/localizations";
-import { auth } from "@clerk/nextjs/server";
 import Header from "@/components/Header";
-import HeaderPermittedSystem from "@/components/HeaderPermittedSystem";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -30,27 +26,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { userId } = await auth();
-
   return (
-    <ClerkProvider
-      localization={ptBR}
-      appearance={{
-        // Desabilita as páginas padrão do Clerk
-        elements: {
-          rootBox: "w-full h-full",
-        },
-      }}
-    >
-      <html lang="en">
-        <body
-          className={`${poppins.variable} ${kodchasan.variable} antialiased`}
-        >
-          {userId ? <Header /> : <HeaderPermittedSystem />}
-          <Toaster richColors />
-          {children}
-        </body>
-      </html>
-    </ClerkProvider>
+    <html lang="en">
+      <body className={`${poppins.variable} ${kodchasan.variable} antialiased`}>
+        <Header />
+        {children}
+        <Toaster richColors />
+      </body>
+    </html>
   );
 }

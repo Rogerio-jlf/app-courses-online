@@ -56,7 +56,7 @@ export default function HeaderPermittedSystem() {
 
           {/* Botão de Login */}
           <Link
-            href="/login"
+            href="/home"
             className="flex items-center gap-2 rounded-lg bg-pink-600 px-6 py-2 text-lg font-semibold text-white transition-colors duration-200 hover:bg-pink-900 active:scale-90"
           >
             <FaSignInAlt />

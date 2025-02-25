@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { FaBook, FaDollarSign, FaSignInAlt } from "react-icons/fa";
 import { useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 
@@ -13,17 +12,6 @@ export default function HomePage() {
     // Gere a classe dinâmica apenas no cliente
     setDynamicClass("__variable_2dbf9b __variable_3292b7 antialiased");
   }, []);
-  interface Routes {
-    [key: string]: string;
-  }
-
-  const getRoute = (item: string): string => {
-    const routes: Routes = {
-      Cursos: "course",
-      Planos: "plans",
-    };
-    return routes[item] || item.toLowerCase();
-  };
 
   return (
     <>
@@ -36,50 +24,12 @@ export default function HomePage() {
           <Image
             src="/escola.jpg"
             alt="Descrição da Imagem"
-            layout="fill"
-            objectFit="cover"
-            className="h-full w-full opacity-80"
+            fill
+            style={{ objectFit: "cover", objectPosition: "center" }}
+            quality={100}
+            className="h-full w-full object-cover opacity-80"
           />
         </div>
-
-        {/* HEADER */}
-        <header className="fixed top-0 z-20 w-full bg-black shadow-sm backdrop-blur-md">
-          {/* Container principal do header  */}
-          <div className="mx-auto flex w-full items-center justify-between px-4 py-4 sm:px-6 lg:px-20">
-            {/* Título */}
-            <h1 className="text-3xl font-bold text-white">MeuLogoTipo</h1>
-
-            {/* Navegação */}
-            <nav className="hidden items-center gap-6 lg:flex">
-              <ul className="flex items-center gap-6">
-                {["Cursos", "Planos"].map((item) => (
-                  <li key={item}>
-                    <Link
-                      href={`/${getRoute(item)}`}
-                      className="group relative flex items-center gap-2 text-lg font-medium text-white hover:italic hover:text-pink-500"
-                    >
-                      {item === "Cursos" ? <FaBook /> : <FaDollarSign />}
-                      {item}
-                      <span className="absolute bottom-0 left-0 h-0.5 w-0 bg-pink-600 transition-all duration-200 group-hover:w-full"></span>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Barra vertical */}
-              <div className="h-10 w-px bg-white"></div>
-
-              {/* Botão de Login */}
-              <Link
-                href="/login"
-                className="flex items-center gap-2 rounded-lg bg-pink-600 px-6 py-2 text-lg font-semibold text-white transition-colors duration-200 hover:bg-pink-900 active:scale-90"
-              >
-                <FaSignInAlt />
-                Entrar
-              </Link>
-            </nav>
-          </div>
-        </header>
 
         {/* MAIN */}
         <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center justify-center px-4 py-12">
